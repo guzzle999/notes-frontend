@@ -120,34 +120,40 @@ const DashboardPage = () => {
     return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   return (
-    <div className="min-h-screen bg-blue-200">
-      <div className="min-h-screen max-w-5xl mx-auto px-6 py-10 bg-blue-200">
-        <h1 className="text-4xl font-extrabold text-black mb-10 border-4 border-black rounded-lg bg-green-200 py-4  text-center">
+    <div className="min-h-screen bg-[#FFFFFF]">
+      <div className="min-h-screen max-w-5xl mx-auto md:mt-6 md:mb-6 px-6 py-10 bg-[#F9FAFB] border-2 rounded-2xl">
+        <h1
+          className="text-black font-bold text-3xl px-4 py-4 rounded-lg"
+          style={{
+            background:
+              "linear-gradient(90deg, #A5D8FF, #B2F2BB, #FFD8A8, #D0BFFF)",
+          }}
+        >
           Welcome, {user?.fullName || "User"} 👋
         </h1>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearch} className="mb-8">
+        <form onSubmit={handleSearch} className="mb-8 md:py-4">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search notes by title, content, or tags"
-            className="w-full p-3 border-4 border-black rounded-lg bg-white shadow-[2px_2px_0_0_#000] font-mono text-black"
+            className="w-full p-3  rounded-lg bg-white/70 shadow-sm text-black"
           />
           <div className="mt-3 flex items-center gap-3">
             <button
               type="submit"
-              className="cursor-pointer bg-pink-300 border-4 border-black text-black font-extrabold px-6 py-3 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-pink-400 transition-all duration-200"
+              className="cursor-pointer bg-[#FFD8A8]  text-[#111827]font-extrabold px-6 py-3 rounded-lg  hover:bg-[#FFBF81] transition-all duration-200"
             >
               Search
             </button>
-            <label className="ml-auto text-black font-mono">
+            <label className="ml-auto text-black ">
               Page size:
               <select
                 value={pageSize}
                 onChange={handlePageSizeChange}
-                className="ml-2 p-2 border-2 border-black rounded bg-white"
+                className="ml-2 p-2 border-2  rounded-lg bg-white"
               >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
@@ -161,7 +167,7 @@ const DashboardPage = () => {
         {/* Button to Open Modal */}
         <button
           onClick={() => setIsModalOpen(true)}
-          className="cursor-pointer mb-10 bg-blue-300 border-4 border-black text-black font-extrabold px-6 py-3 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-blue-400 transition-all duration-200"
+          className="cursor-pointer font-medium mb-10 bg-[#B2F2BB] text-#111827] hover:bg-[#A5D8FF] transition  px-6 py-3 rounded-lg duration-200"
         >
           Create Note
         </button>
@@ -169,16 +175,16 @@ const DashboardPage = () => {
         {/* Modal */}
         {isModalOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-pink-100/30 backdrop-blur-sm bg-opacity-20 flex items-center justify-center z-30 p-4"
             onClick={() => setIsModalOpen(false)}
           >
             <div
-              className="bg-yellow-100 border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000] p-8 w-full max-w-lg relative"
+              className="bg-gray-50 rounded-2xl p-8 w-full max-w-lg sm:max-w-md md:max-h-5/6 overflow-y-auto relative"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-black bg-white border-2 border-black rounded-full w-8 h-8 flex items-center justify-center shadow-[2px_2px_0_0_#000] hover:bg-pink-200 transition"
+                className="absolute top-4 right-4 text-white bg-pink-500 rounded-full w-8 h-8 flex items-center justify-center  hover:bg-pink-600 transition cursor-pointer"
               >
                 ✖
               </button>
@@ -193,8 +199,8 @@ const DashboardPage = () => {
         )}
 
         {Array.isArray(notes) && notes.length === 0 ? (
-          <p className="text-black font-mono text-lg">
-            You have no notes yet. Start writing!
+          <p className="text-black  text-lg">
+            You have no notes yet. Start writing! 📝
           </p>
         ) : (
           <>
@@ -211,7 +217,7 @@ const DashboardPage = () => {
               <button
                 onClick={handlePrev}
                 disabled={page <= 1}
-                className={`px-4 py-2 border-4 border-black rounded-lg shadow-[2px_2px_0_0_#000] font-bold ${
+                className={`px-4 py-2  rounded-lg  font-bold ${
                   page <= 1
                     ? "bg-gray-300 text-gray-600 cursor-not-allowed"
                     : "bg-white hover:bg-gray-100 cursor-pointer"
@@ -219,7 +225,7 @@ const DashboardPage = () => {
               >
                 Prev
               </button>
-              <span className="text-black font-mono">
+              <span className="text-black ">
                 Page {page} of {Math.max(1, Math.ceil((total || 0) / pageSize))}
               </span>
               <button
@@ -227,7 +233,7 @@ const DashboardPage = () => {
                 disabled={
                   page >= Math.max(1, Math.ceil((total || 0) / pageSize))
                 }
-                className={`px-4 py-2 border-4 border-black rounded-lg shadow-[2px_2px_0_0_#000] font-bold ${
+                className={`px-4 py-2  rounded-lg  font-bold ${
                   page >= Math.max(1, Math.ceil((total || 0) / pageSize))
                     ? "bg-gray-300 text-gray-600 cursor-not-allowed"
                     : "bg-white hover:bg-gray-100 cursor-pointer"

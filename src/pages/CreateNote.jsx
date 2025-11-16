@@ -33,13 +33,13 @@ const CreateNote = ({ onNoteAdded }) => {
   };
 
   return (
-    <div className="max-w-xl mx-auto py-10 px-6 bg-yellow-100 border-4 border-black rounded-2xl shadow-[8px_8px_0_0_#000]">
-      <h1 className="text-3xl font-extrabold text-black mb-8 border-4 border-black rounded-lg bg-pink-200 py-3 shadow-[4px_4px_0_0_#000] text-center">
+    <div className="max-w-xl mx-auto py-10 px-6 bg-[#F3F4F6] border-4 border-[#E5E7EB]  rounded-2xl ">
+      <h1 className="md:text-2xl text-xl font-bold text-[#111827] mb-8 rounded-lg bg-pink-200 py-3 text-center">
         Create a New Note
       </h1>
 
       {error && (
-        <div className="bg-red-200 text-red-900 border-2 border-black rounded-lg px-4 py-2 mb-4 text-center shadow-[2px_2px_0_0_#000] font-mono">
+        <div className="bg-red-200 text-red-900 border-2 border-black rounded-lg px-4 py-2 mb-4 text-center  ">
           {error}
         </div>
       )}
@@ -49,7 +49,7 @@ const CreateNote = ({ onNoteAdded }) => {
           <label className="block mb-1 font-bold text-black">Title</label>
           <input
             type="text"
-            className="w-full p-3 border-4 border-black rounded-lg bg-white shadow-[2px_2px_0_0_#000] focus:ring-2 focus:ring-pink-300 font-mono text-black"
+            className="w-full p-3  rounded-lg bg-white  focus:ring-2 focus:ring-pink-300  text-black"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -59,7 +59,7 @@ const CreateNote = ({ onNoteAdded }) => {
         <div>
           <label className="block mb-1 font-bold text-black">Content</label>
           <textarea
-            className="w-full p-3 border-4 border-black rounded-lg bg-white shadow-[2px_2px_0_0_#000] min-h-[150px] focus:ring-2 focus:ring-pink-300 font-mono text-black"
+            className="w-full p-3  rounded-lg bg-white  min-h-[150px] focus:ring-2 focus:ring-pink-300  text-black"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
@@ -70,7 +70,7 @@ const CreateNote = ({ onNoteAdded }) => {
           <label className="block mb-1 font-bold text-black">Tags</label>
           <input
             type="text"
-            className="w-full p-3 border-4 border-black rounded-lg bg-white shadow-[2px_2px_0_0_#000] focus:ring-2 focus:ring-pink-300 font-mono text-black"
+            className="w-full p-3  rounded-lg bg-white  focus:ring-2 focus:ring-pink-300  text-black"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             placeholder="Enter tags separated by commas"
@@ -83,9 +83,12 @@ const CreateNote = ({ onNoteAdded }) => {
             id="isPinned"
             checked={isPinned}
             onChange={(e) => setIsPinned(e.target.checked)}
-            className="mr-2 border-2 border-black rounded shadow-[1px_1px_0_0_#000]"
+            className="mr-2 border-2 border-black rounded cursor-pointer"
           />
-          <label htmlFor="isPinned" className="font-bold text-black">
+          <label
+            htmlFor="isPinned"
+            className="font-bold text-[#111827] cursor-pointer"
+          >
             Pin this note
           </label>
         </div>
@@ -93,7 +96,7 @@ const CreateNote = ({ onNoteAdded }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-pink-300 border-4 border-black text-black font-extrabold py-3 rounded-lg shadow-[2px_2px_0_0_#000] hover:bg-pink-400 transition-all duration-200"
+          className="w-full bg-[#B2F2BB] border-4 text-[#111827] font-bold py-3 rounded-lg  hover:bg-[#A5D8FF] transition-all duration-200 cursor-pointer"
         >
           {loading ? "Saving..." : "Create Note"}
         </button>
