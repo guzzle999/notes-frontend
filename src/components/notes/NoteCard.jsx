@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { updateNoteVisibility } from "../../services/notesService";
 
-const NoteCard = ({ note, onDelete }) => {
+const NoteCard = ({ note, onDelete, onView, onEdit }) => {
   const [isPublic, setIsPublic] = useState(note.isPublic); // Local state for visibility
 
   const handleToggleVisibility = async () => {
@@ -15,7 +15,7 @@ const NoteCard = ({ note, onDelete }) => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#E8F8FF] to-[#F3EEFF] border-2 border-[#E5E7EB] rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-200">
+    <div className="bg-gradient-to-br from-[#E8F8FF] to-[#F3EEFF] border-1 border-[#E5E7EB] rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-200">
       <div>
         {/* Title */}
         <h2 className="text-xl font-bold mb-3 text-[#111827] border-2 border-[#E5E7EB] rounded-lg bg-[#FFFFFF] px-2 py-1  truncate">
@@ -51,34 +51,35 @@ const NoteCard = ({ note, onDelete }) => {
       <div className="flex items-center justify-between mt-6 text-xs text-black ">
         {/* Created Date */}
         <span className=" px-2 py-1">
-          Created on: {new Date(note.createdOn).toLocaleDateString()}
+          Created on:{" "}
+          {new Date(note.createdOn).toLocaleDateString()}
         </span>
 
         {/* Actions */}
         <div className="flex-col space-x-2 space-y-2 items-center">
           <div className="flex gap-x-1">
-            <Link
-              to={`/notes/${note._id}`}
-              className="font-bold text-blue-700 bg-white border-2 border-[#E5E7EB] rounded px-2 py-1  hover:bg-blue-200 transition"
+            <button
+              onClick={() => onView(note._id)}
+              className=" cursor-pointer font-bold text-blue-700 bg-white border-2 border-[#E5E7EB] rounded-sm px-2 py-1  hover:bg-blue-200 transition"
             >
               View
-            </Link>
-            <Link
-              to={`/notes/${note._id}`}
-              className="font-bold text-green-700 bg-white border-2 border-[#E5E7EB] rounded px-2 py-1  hover:bg-green-200 transition"
+            </button>
+            <button
+              onClick={() => onEdit(note._id)}
+              className=" cursor-pointer font-bold text-green-700 bg-white border-2 border-[#E5E7EB]  rounded-sm px-2 py-1  hover:bg-green-200 transition"
             >
               Edit
-            </Link>
+            </button>
             <button
               onClick={() => onDelete(note._id)}
-              className="cursor-pointer font-bold text-red-700 bg-white border-2 border-[#E5E7EB] rounded px-2 py-1  hover:bg-red-200 transition"
+              className="cursor-pointer font-bold text-red-700 bg-white border-2 border-[#E5E7EB] rounded-sm px-2 py-1  hover:bg-red-200 transition"
             >
               Delete
             </button>
           </div>
           <button
             onClick={handleToggleVisibility}
-            className={`cursor-pointer font-bold border-2 border-[#E5E7EB] rounded-lg px-2 py-1  transition ${
+            className={`cursor-pointer font-bold border-2 border-[#E5E7EB] rounded-sm px-2 py-1  transition ${
               isPublic
                 ? "bg-[#D0BFFF] text-[#e4226c] hover:bg-[#D0BFFF]"
                 : "bg-[#D0BFFF] text-[#111827] hover:bg-[#a389eb]"

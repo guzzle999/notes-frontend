@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { deleteNote, getMyNotes, searchNotes } from "../services/notesService";
 import NoteCard from "../components/notes/NoteCard";
 import CreateNote from "./CreateNote";
+import NoteDetailsPage from "./NoteDetailsPage";
 
 const DashboardPage = () => {
   const { user } = useAuth();
@@ -12,7 +13,10 @@ const DashboardPage = () => {
   const [loadingNotes, setLoadingNotes] = useState(true);
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState(() => searchParams.get("q") || "");
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // State for modal visibility
+  const [viewEditModalOpen, setViewEditModalOpen] = useState(false);
+  const [selectedNoteId, setSelectedNoteId] = useState(null);
   // pagination state
   const [page, setPage] = useState(() => Math.max(1, parseInt(searchParams.get("page") || "1", 10)));
   const [pageSize, setPageSize] = useState(() => {
@@ -166,24 +170,24 @@ const DashboardPage = () => {
 
         {/* Button to Open Modal */}
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsCreateModalOpen(true)}
           className="cursor-pointer font-medium mb-10 bg-[#B2F2BB] text-#111827] hover:bg-[#A5D8FF] transition  px-6 py-3 rounded-lg duration-200"
         >
           Create Note
         </button>
 
         {/* Modal */}
-        {isModalOpen && (
+        {isCreateModalOpen && (
           <div
             className="fixed inset-0 bg-pink-100/30 backdrop-blur-sm bg-opacity-20 flex items-center justify-center z-30 p-4"
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => setIsCreateModalOpen(false)}
           >
             <div
               className="bg-gray-50 rounded-2xl p-8 w-full max-w-lg sm:max-w-md md:max-h-5/6 overflow-y-auto relative"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => setIsCreateModalOpen(false)}
                 className="absolute top-4 right-4 text-white bg-pink-500 rounded-full w-8 h-8 flex items-center justify-center  hover:bg-pink-600 transition cursor-pointer"
               >
                 ✖
@@ -191,13 +195,39 @@ const DashboardPage = () => {
               <CreateNote
                 onNoteAdded={() => {
                   fetchNotes();
-                  setIsModalOpen(false);
+                  setIsCreateModalOpen(false);
                 }}
               />
             </div>
           </div>
         )}
 
+        {/* View / Edit Modal */}
+        {viewEditModalOpen && selectedNoteId && (
+          <div
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-40 p-4"
+            onClick={() => setViewEditModalOpen(false)}
+          >
+            <div
+              className="bg-white rounded-2xl p-4 w-full max-w-xl relative shadow-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setViewEditModalOpen(false)}
+                className="absolute top-3 right-3 text-gray-600 hover:text-black text-xl cursor-pointer"
+              >
+                ✖
+              </button>
+              <NoteDetailsPage
+                noteId={selectedNoteId}
+                onClose={() => setViewEditModalOpen(false)}
+                onNoteUpdated={()=> fetchNotes(page, pageSize, searchQuery)}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Notes List */}
         {Array.isArray(notes) && notes.length === 0 ? (
           <p className="text-black  text-lg">
             You have no notes yet. Start writing! 📝
@@ -210,6 +240,14 @@ const DashboardPage = () => {
                   key={note._id}
                   note={note}
                   onDelete={handleDeleteNote}
+                  onView={(id) => {
+                    setSelectedNoteId(id);
+                    setViewEditModalOpen(true);
+                  }}
+                  onEdit={(id) => {
+                    setSelectedNoteId(id);
+                    setViewEditModalOpen(true);
+                  }}
                 />
               ))}
             </div>

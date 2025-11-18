@@ -47,7 +47,7 @@ const Navbar = () => {
               to={user && user._id ? `/profile/${user._id}` : "#"}
               className="font-bold text-black bg-[#FFD8A8] rounded-lg px-3 py-1  hover:bg-[#67b6f3] transition"
             >
-              Profile
+              Public Profile
             </Link>
             <Link
               onClick={logout}
