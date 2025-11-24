@@ -124,7 +124,7 @@ const DashboardPage = () => {
     return <div className="text-center mt-10 text-red-500">{error}</div>;
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF]">
+    <div className="min-h-screen bg-[url('/bg02.jpg')] bg-cover">
       <div className="min-h-screen max-w-5xl mx-auto md:mt-6 md:mb-6 px-6 py-10 bg-[#F9FAFB] border-2 rounded-2xl">
         <h1
           className="text-black font-bold text-3xl px-4 py-4 rounded-lg"
@@ -221,7 +221,7 @@ const DashboardPage = () => {
               <NoteDetailsPage
                 noteId={selectedNoteId}
                 onClose={() => setViewEditModalOpen(false)}
-                onNoteUpdated={()=> fetchNotes(page, pageSize, searchQuery)}
+                onNoteUpdated={() => fetchNotes(page, pageSize, searchQuery)}
               />
             </div>
           </div>

@@ -68,10 +68,9 @@ const NoteDetailsPage = ({noteId, onNoteUpdated}) => {
       className="w-full bg-white/5 z-50
                  flex items-center justify-center p-4"
     >
-
       {/* EDIT MODE */}
       {isEditing ? (
-        <div className="bg-white border-2 rounded-2xl p-4 ">
+        <div className="bg-gradient-to-br from-[#E8F8FF] to-[#F3EEFF] border-2 rounded-2xl p-4 ">
           <input
             type="text"
             name="title"
@@ -112,10 +111,9 @@ const NoteDetailsPage = ({noteId, onNoteUpdated}) => {
           </button>
         </div>
       ) : (
-
-      /* VIEW MODE */
-      <div
-          className="bg-white border-2 rounded-xl p-4 w-full relative
+        /* VIEW MODE */
+        <div
+          className="bg-gradient-to-br from-[#E8F8FF] to-[#F3EEFF] border-2 rounded-xl p-4 w-full relative
                max-w-sm sm:max-w-md lg:max-w-xl
                max-h-[90vh] overflow-y-auto"
         >
@@ -148,7 +146,7 @@ const NoteDetailsPage = ({noteId, onNoteUpdated}) => {
           >
             Edit Note
           </button>
-      </div>
+        </div>
       )}
     </div>
   );
